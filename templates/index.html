@@ -2,69 +2,81 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Diagnosi Energetica Avanzata</title>
+    <title>Sopralluogo Diagnosi Energetica</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; padding: 20px; }
-        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h2 { color: #1a3a5a; border-bottom: 3px solid #27ae60; padding-bottom: 10px; }
-        .section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #1a3a5a; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        label { font-weight: bold; display: block; margin-top: 10px; font-size: 0.85em; }
-        input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background: #27ae60; color: white; padding: 15px; border: none; width: 100%; border-radius: 8px; font-size: 1.2em; cursor: pointer; margin-top: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; padding: 20px; color: #333; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        h2 { color: #1a3a5a; border-bottom: 3px solid #27ae60; padding-bottom: 10px; text-transform: uppercase; }
+        .section { background: #fdfdfd; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e1e8ed; border-top: 4px solid #1a3a5a; }
+        .section-title { font-weight: bold; color: #1a3a5a; margin-bottom: 15px; display: block; font-size: 1.1em; border-bottom: 1px solid #eee; padding-bottom: 5px;}
+        .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        label { font-weight: 600; display: block; margin-top: 10px; font-size: 0.85em; color: #555; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .tep-box { background: #e8f5e9; padding: 10px; border-radius: 5px; font-style: italic; font-size: 0.85em; margin-top: 10px; }
+        button { background: #27ae60; color: white; padding: 18px; border: none; width: 100%; border-radius: 8px; font-size: 1.2em; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        button:hover { background: #219150; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Input Dati Diagnosi Energetica (UNI 16247)</h2>
+        <h2>Sopralluogo Diagnosi Energetica</h2>
         <form action="/genera" method="post">
             
             <div class="section">
-                <strong>1. Anagrafica e Referenti</strong>
+                <span class="section-title">1. INFO GENERALI E REFERENTI</span>
                 <div class="grid">
                     <div><label>Ragione Sociale:</label><input type="text" name="cliente" required></div>
                     <div><label>Comune:</label><input type="text" name="comune" required></div>
-                    <div><label>Referente Interno:</label><input type="text" name="referente" required></div>
-                    <div><label>Contatto Telefonico:</label><input type="text" name="telefono" required></div>
-                    <div><label>Contatto Mail:</label><input type="email" name="mail" required></div>
+                    <div><label>Referente:</label><input type="text" name="referente" required></div>
+                    <div><label>Telefono:</label><input type="text" name="telefono" required></div>
+                    <div><label>Email:</label><input type="email" name="mail" required></div>
                     <div><label>Destinazione d'uso:</label>
                         <select name="destinazione">
                             <option value="Uffici">Uffici</option>
                             <option value="Industriale">Industriale</option>
-                            <option value="Commerciale">Commerciale</option>
                             <option value="Scolastico">Scolastico</option>
-                            <option value="Altro">Altro</option>
+                            <option value="Commerciale">Commerciale</option>
                         </select>
                     </div>
                 </div>
-                <label>Attività svolte dall'impresa:</label>
-                <textarea name="attivita" rows="2"></textarea>
+                <label>Attività svolte:</label><textarea name="attivita" rows="2"></textarea>
             </div>
 
             <div class="section">
-                <strong>2. Parametri Dimensionali e Operativi</strong>
+                <span class="section-title">2. STATO DEI LUOGHI E GENERATORI</span>
                 <div class="grid">
                     <div><label>Mq Riscaldati:</label><input type="number" step="0.1" name="mq_risc" required></div>
                     <div><label>Mq Raffrescati:</label><input type="number" step="0.1" name="mq_raff" required></div>
-                    <div><label>GG Accensione Riscaldamento:</label><input type="number" name="gg_risc" required></div>
-                    <div><label>GG Accensione Raffrescamento:</label><input type="number" name="gg_raff" required></div>
-                    <div><label>Giorni Lavorativi Annui:</label><input type="number" name="gg_lav" required></div>
+                    <div><label>GG Lavorativi/Anno:</label><input type="number" name="gg_lav" required></div>
                 </div>
+                <div class="grid">
+                    <div><label>GG Accensione Risc.:</label><input type="number" name="gg_risc" required></div>
+                    <div><label>GG Accensione Raffr.:</label><input type="number" name="gg_raff" required></div>
+                    <div><label>Tipologia/N° Generatori:</label><input type="text" name="gen_info" placeholder="Es: 2 Caldaie a condensazione 100kW"></div>
+                </div>
+                <label>Stratigrafia Murature:</label><input type="text" name="strat_muri" placeholder="Descrizione pacchetto murario">
+                <label>Stratigrafia Pavimento:</label><input type="text" name="strat_pav" placeholder="Descrizione basamento">
+                <label>Stratigrafia Solaio Copertura:</label><input type="text" name="strat_solaio" placeholder="Descrizione tetto/lastrico">
             </div>
 
             <div class="section">
-                <strong>3. Ripartizione Consumi (Ultimo Anno)</strong>
-                <div class="grid">
-                    <div><label>Consumo Riscaldamento (kWh):</label><input type="number" name="val_risc" required></div>
-                    <div><label>Consumo Raffrescamento (kWh):</label><input type="number" name="val_raff" required></div>
-                    <div><label>Consumo Illuminazione (kWh):</label><input type="number" name="val_illu" required></div>
-                    <div><label>Altro/Processi (kWh):</label><input type="number" name="val_altro" required></div>
+                <span class="section-title">3. CONSUMI ENERGETICI BIENNALI (SMC o kWh)</span>
+                {% for anno in [2023, 2024] %}
+                <div style="background: #f1f1f1; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                    <strong>Anno {{ anno }}</strong>
+                    <div class="grid">
+                        <div><label>Riscaldamento (kWh):</label><input type="number" name="risc_kwh_{{ anno }}" value="0"></div>
+                        <div><label>OPPURE Risc. (Smc):</label><input type="number" name="risc_smc_{{ anno }}" value="0"></div>
+                        <div><label>Raffrescamento (kWh):</label><input type="number" name="raff_kwh_{{ anno }}" value="0"></div>
+                        <div><label>Illuminazione (kWh):</label><input type="number" name="illu_kwh_{{ anno }}" value="0"></div>
+                        <div><label>Altro (kWh):</label><input type="number" name="altro_kwh_{{ anno }}" value="0"></div>
+                    </div>
                 </div>
-                <label>Specifica "Altro":</label>
-                <input type="text" name="spec_altro" placeholder="es. Aria compressa, Macchine utensili...">
+                {% endfor %}
+                <div class="tep-box">NB: Il sistema converte automaticamente i dati in TEP (1 kWh = 0.000187 | 1 Smc = 0.00082)</div>
             </div>
 
-            <button type="submit">Calcola Baseline e Genera PDF</button>
+            <button type="submit">GENERA REPORT SOPRALLUOGO</button>
         </form>
     </div>
 </body>
