@@ -12,7 +12,6 @@
         .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
         label { font-weight: 600; display: block; margin-top: 10px; font-size: 0.85em; color: #555; }
         input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .tep-box { background: #e8f5e9; padding: 10px; border-radius: 5px; font-style: italic; font-size: 0.85em; margin-top: 10px; }
         button { background: #27ae60; color: white; padding: 18px; border: none; width: 100%; border-radius: 8px; font-size: 1.2em; cursor: pointer; margin-top: 20px; font-weight: bold; }
         button:hover { background: #219150; }
     </style>
@@ -54,29 +53,53 @@
                     <div><label>GG Accensione Raffr.:</label><input type="number" name="gg_raff" required></div>
                     <div><label>Tipologia/N° Generatori:</label><input type="text" name="gen_info" placeholder="Es: 2 Caldaie a condensazione 100kW"></div>
                 </div>
-                <label>Stratigrafia Murature:</label><input type="text" name="strat_muri" placeholder="Descrizione pacchetto murario">
-                <label>Stratigrafia Pavimento:</label><input type="text" name="strat_pav" placeholder="Descrizione basamento">
-                <label>Stratigrafia Solaio Copertura:</label><input type="text" name="strat_solaio" placeholder="Descrizione tetto/lastrico">
+                <label>Stratigrafia Murature:</label><input type="text" name="strat_muri">
+                <label>Stratigrafia Pavimento:</label><input type="text" name="strat_pav">
+                <label>Stratigrafia Solaio Copertura:</label><input type="text" name="strat_solaio">
             </div>
 
             <div class="section">
-                <span class="section-title">3. CONSUMI ENERGETICI BIENNALI (SMC o kWh)</span>
+                <span class="section-title">3. INTERVENTI DI MIGLIORAMENTO IPOTIZZATI</span>
+                {% for i in range(1, 6) %}
+                <label>Intervento {{ i }}:</label>
+                <select name="intervento_{{ i }}">
+                    <option value="">-- Nessuno --</option>
+                    <option value="II.A - Isolamento termico: Coibentazione di pareti, coperture e pavimenti">II.A - Isolamento termico</option>
+                    <option value="II.B - Infissi: Sostituzione di chiusure trasparenti e finestre">II.B - Infissi</option>
+                    <option value="II.C - Schermature solari: Installazione di sistemi di ombreggiamento">II.C - Schermature solari</option>
+                    <option value="II.D - Edifici nZEB: Trasformazione integrale in edifici a energia quasi zero">II.D - Edifici nZEB</option>
+                    <option value="II.E - Illuminazione efficiente: Sostituzione con tecnologie LED">II.E - Illuminazione efficiente</option>
+                    <option value="II.F - Building Automation: Tecnologie di gestione e controllo automatico">II.F - Building Automation</option>
+                    <option value="II.G - Ricarica veicoli elettrici: Infrastrutture di ricarica + PdC">II.G - Ricarica veicoli elettrici</option>
+                    <option value="II.H - Fotovoltaico: Impianti solari fotovoltaici e accumulo + PdC">II.H - Fotovoltaico</option>
+                    <option value="III.A - Pompe di calore: Sostituzione con pompe di calore elettriche o a gas">III.A - Pompe di calore</option>
+                    <option value="III.B - Sistemi ibridi: Caldaia a condensazione + PdC">III.B - Sistemi ibridi</option>
+                    <option value="III.C - Caldaie a biomassa: Sostituzione con generatori a biomassa">III.C - Caldaie a biomassa</option>
+                    <option value="III.D - Solare termico: Collettori solari per ACS o riscaldamento">III.D - Solare termico</option>
+                    <option value="III.E - Scaldacqua a pompa di calore: Sostituzione modelli elettrici/gas">III.E - Scaldacqua a PdC</option>
+                    <option value="III.F - Teleriscaldamento: Allacciamento a reti efficienti">III.F - Teleriscaldamento</option>
+                    <option value="III.G - Microcogenerazione: Unità alimentate da fonti rinnovabili">III.G - Microcogenerazione</option>
+                </select>
+                {% endfor %}
+            </div>
+
+            <div class="section">
+                <span class="section-title">4. CONSUMI BIENNALI</span>
                 {% for anno in [2023, 2024] %}
                 <div style="background: #f1f1f1; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
                     <strong>Anno {{ anno }}</strong>
                     <div class="grid">
                         <div><label>Riscaldamento (kWh):</label><input type="number" name="risc_kwh_{{ anno }}" value="0"></div>
-                        <div><label>OPPURE Risc. (Smc):</label><input type="number" name="risc_smc_{{ anno }}" value="0"></div>
+                        <div><label>Risc. (Smc):</label><input type="number" name="risc_smc_{{ anno }}" value="0"></div>
                         <div><label>Raffrescamento (kWh):</label><input type="number" name="raff_kwh_{{ anno }}" value="0"></div>
                         <div><label>Illuminazione (kWh):</label><input type="number" name="illu_kwh_{{ anno }}" value="0"></div>
                         <div><label>Altro (kWh):</label><input type="number" name="altro_kwh_{{ anno }}" value="0"></div>
                     </div>
                 </div>
                 {% endfor %}
-                <div class="tep-box">NB: Il sistema converte automaticamente i dati in TEP (1 kWh = 0.000187 | 1 Smc = 0.00082)</div>
             </div>
 
-            <button type="submit">GENERA REPORT SOPRALLUOGO</button>
+            <button type="submit">GENERA SOPRALLUOGO DIAGNOSI ENERGETICA</button>
         </form>
     </div>
 </body>
