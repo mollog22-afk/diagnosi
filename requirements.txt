@@ -1,4 +1,4 @@
-echo flask >> requirements.txt
-echo pandas >> requirements.txt
-echo openpyxl >> requirements.txt
-echo reportlab >> requirements.txt
+flask
+pandas
+openpyxl
+reportlab
