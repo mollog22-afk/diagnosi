@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnosi Energetica 16247</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 40px; background-color: #eef2f3; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 550px; margin: auto; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 10px; }
+        label { font-weight: bold; display: block; margin-top: 15px; color: #34495e; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        .info-tep { background: #d4edda; color: #155724; padding: 10px; border-radius: 6px; font-size: 0.9em; margin: 15px 0; }
+        button { background-color: #27ae60; color: white; padding: 14px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; margin-top: 20px; }
+        button:hover { background-color: #219150; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Report Diagnosi Energetica</h2>
+        <form action="/genera" method="post">
+            <label>Ragione Sociale Cliente:</label>
+            <input type="text" name="cliente" placeholder="Es: Azienda Rossi S.p.A." required>
+            
+            <label>Tecnico EGE Certificato:</label>
+            <input type="text" name="tecnico" placeholder="Nome e Cognome" required>
+
+            <div style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label>Consumo Elettrico (kWh):</label>
+                    <input type="number" step="0.01" name="kwh" placeholder="0" required>
+                </div>
+                <div style="flex: 1;">
+                    <label>Consumo Termico (Sm3):</label>
+                    <input type="number" step="0.01" name="smc" placeholder="0" required>
+                </div>
+            </div>
+
+            <div class="info-tep">
+                * Il sistema calcolerà automaticamente il totale in <strong>TEP</strong> nel documento PDF.
+            </div>
+
+            <button type="submit">Genera Report e Calcola TEP</button>
+        </form>
+    </div>
+</body>
+</html>
