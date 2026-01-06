@@ -93,9 +93,9 @@ def genera():
         elements = []
 
         # Intestazione
-        title_st = ParagraphStyle('T', fontSize=22, textColor=colors.HexColor("#1a3a5a"), alignment=1)
+        title_st = ParagraphStyle('T', fontSize=22, textColor=colors.HexColor("#1a3a5a"), alignment=1,spaceAfter=12)
         elements.append(Paragraph("SOPRALLUOGO DIAGNOSI ENERGETICA", title_st))
-        elements.append(HRFlowable(width="100%", thickness=2, color=colors.HexColor("#27ae60")))
+        elements.append(HRFlowable(width="100%", thickness=2, color=colors.HexColor("#27ae60"),spaceAfter=10))
         elements.append(Spacer(1, 1*cm))
 
         # 1. Anagrafica
@@ -174,3 +174,4 @@ def genera():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
