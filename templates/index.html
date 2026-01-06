@@ -2,68 +2,69 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Software Diagnosi Energetica 16247</title>
+    <title>Diagnosi Energetica Avanzata</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; padding: 20px; color: #333; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         h2 { color: #1a3a5a; border-bottom: 3px solid #27ae60; padding-bottom: 10px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0; }
-        .block { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd; }
-        label { font-weight: bold; display: block; margin-top: 10px; font-size: 0.9em; }
-        input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .section-header { background: #1a3a5a; color: white; padding: 10px; margin-top: 25px; border-radius: 5px; }
-        button { background: #27ae60; color: white; padding: 15px; border: none; width: 100%; border-radius: 8px; font-size: 1.2em; cursor: pointer; margin-top: 30px; }
-        button:hover { background: #219150; }
+        .section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #1a3a5a; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        label { font-weight: bold; display: block; margin-top: 10px; font-size: 0.85em; }
+        input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #27ae60; color: white; padding: 15px; border: none; width: 100%; border-radius: 8px; font-size: 1.2em; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Rapporto di Diagnosi Energetica - Input Dati</h2>
+        <h2>Input Dati Diagnosi Energetica (UNI 16247)</h2>
         <form action="/genera" method="post">
-            <div class="section-header">Dati Identificativi</div>
-            <div style="display: flex; gap: 15px;">
-                <div style="flex: 2;"><label>Ragione Sociale:</label><input type="text" name="cliente" required></div>
-                <div style="flex: 1;"><label>Comune:</label><input type="text" name="comune" required></div>
-                <div style="flex: 1;"><label>Tecnico EGE:</label><input type="text" name="tecnico" required></div>
-            </div>
-
-            <div class="section-header">Consumi Energetici Triennali</div>
-            <div class="grid-3">
-                {% for i in range(2021, 2024) %}
-                <div class="block">
-                    <strong>Anno {{ i }}</strong>
-                    <label>Elettrico (kWh):</label><input type="number" name="kwh_{{ i }}" required>
-                    <label>Termico (Smc):</label><input type="number" name="smc_{{ i }}" required>
+            
+            <div class="section">
+                <strong>1. Anagrafica e Referenti</strong>
+                <div class="grid">
+                    <div><label>Ragione Sociale:</label><input type="text" name="cliente" required></div>
+                    <div><label>Comune:</label><input type="text" name="comune" required></div>
+                    <div><label>Referente Interno:</label><input type="text" name="referente" required></div>
+                    <div><label>Contatto Telefonico:</label><input type="text" name="telefono" required></div>
+                    <div><label>Contatto Mail:</label><input type="email" name="mail" required></div>
+                    <div><label>Destinazione d'uso:</label>
+                        <select name="destinazione">
+                            <option value="Uffici">Uffici</option>
+                            <option value="Industriale">Industriale</option>
+                            <option value="Commerciale">Commerciale</option>
+                            <option value="Scolastico">Scolastico</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                    </div>
                 </div>
-                {% endfor %}
+                <label>Attività svolte dall'impresa:</label>
+                <textarea name="attivita" rows="2"></textarea>
             </div>
 
-            <div class="section-header">Interventi di Miglioramento Proposti (Max 5)</div>
-            {% for n in range(1, 6) %}
-            <div style="margin-bottom: 10px;">
-                <label>Intervento {{ n }}:</label>
-                <select name="intervento_{{ n }}">
-                    <option value="">-- Seleziona intervento --</option>
-                    <option value="II.A - Isolamento termico">II.A - Isolamento termico: Coibentazione pareti/coperture</option>
-                    <option value="II.B - Infissi">II.B - Infissi: Sostituzione chiusure trasparenti</option>
-                    <option value="II.C - Schermature solari">II.C - Schermature solari: Sistemi di ombreggiamento</option>
-                    <option value="II.D - Edifici nZEB">II.D - Edifici nZEB: Trasformazione quasi zero</option>
-                    <option value="II.E - Illuminazione efficiente">II.E - Illuminazione efficiente: LED/Alta efficienza</option>
-                    <option value="II.F - Building Automation">II.F - Building Automation: Gestione automatica</option>
-                    <option value="II.G - Ricarica veicoli elettrici">II.G - Ricarica veicoli elettrici (con PdC)</option>
-                    <option value="II.H - Fotovoltaico">II.H - Fotovoltaico (con PdC e accumulo)</option>
-                    <option value="III.A - Pompe di calore">III.A - Pompe di calore: Elettriche o a gas</option>
-                    <option value="III.B - Sistemi ibridi">III.B - Sistemi ibridi: Caldaia + PdC</option>
-                    <option value="III.C - Caldaie a biomassa">III.C - Caldaie a biomassa: Pellet/Legna</option>
-                    <option value="III.D - Solare termico">III.D - Solare termico: Acqua calda/Riscaldamento</option>
-                    <option value="III.E - Scaldacqua a PdC">III.E - Scaldacqua a pompa di calore</option>
-                    <option value="III.F - Teleriscaldamento">III.F - Allacciamento a reti teleriscaldamento</option>
-                    <option value="III.G - Microcogenerazione">III.G - Microcogenerazione da rinnovabili</option>
-                </select>
+            <div class="section">
+                <strong>2. Parametri Dimensionali e Operativi</strong>
+                <div class="grid">
+                    <div><label>Mq Riscaldati:</label><input type="number" step="0.1" name="mq_risc" required></div>
+                    <div><label>Mq Raffrescati:</label><input type="number" step="0.1" name="mq_raff" required></div>
+                    <div><label>GG Accensione Riscaldamento:</label><input type="number" name="gg_risc" required></div>
+                    <div><label>GG Accensione Raffrescamento:</label><input type="number" name="gg_raff" required></div>
+                    <div><label>Giorni Lavorativi Annui:</label><input type="number" name="gg_lav" required></div>
+                </div>
             </div>
-            {% endfor %}
 
-            <button type="submit">Genera Rapporto PDF Professionale</button>
+            <div class="section">
+                <strong>3. Ripartizione Consumi (Ultimo Anno)</strong>
+                <div class="grid">
+                    <div><label>Consumo Riscaldamento (kWh):</label><input type="number" name="val_risc" required></div>
+                    <div><label>Consumo Raffrescamento (kWh):</label><input type="number" name="val_raff" required></div>
+                    <div><label>Consumo Illuminazione (kWh):</label><input type="number" name="val_illu" required></div>
+                    <div><label>Altro/Processi (kWh):</label><input type="number" name="val_altro" required></div>
+                </div>
+                <label>Specifica "Altro":</label>
+                <input type="text" name="spec_altro" placeholder="es. Aria compressa, Macchine utensili...">
+            </div>
+
+            <button type="submit">Calcola Baseline e Genera PDF</button>
         </form>
     </div>
 </body>
